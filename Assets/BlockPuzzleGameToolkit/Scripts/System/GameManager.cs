@@ -27,6 +27,7 @@ using DG.Tweening;
 using UnityEngine;
 using ResourceManager = BlockPuzzleGameToolkit.Scripts.Data.ResourceManager;
 
+
 namespace BlockPuzzleGameToolkit.Scripts.System
 {
     public class GameManager : SingletonBehaviour<GameManager>
@@ -45,7 +46,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         public ProductID noAdsProduct;
         private bool blockButtons;
 
-        public int Score { get=> ResourceManager.instance.GetResource("Score").GetValue(); set => ResourceManager.instance.GetResource("Score").Set(value); }
+        public int Score { get => ResourceManager.instance.GetResource("Score").GetValue(); set => ResourceManager.instance.GetResource("Score").Set(value); }
 
         public override void Awake()
         {
@@ -101,7 +102,8 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         private async void Start()
         {
-            if (GameSettings.enableInApps) {
+            if (GameSettings.enableInApps)
+            {
                 products = Resources.LoadAll<ProductID>("ProductIDs")
                     .Select(p => (p.ID, p.productType))
                     .ToArray();
@@ -170,7 +172,8 @@ namespace BlockPuzzleGameToolkit.Scripts.System
 
         public void RemoveAds()
         {
-            if (GameSettings.enableAds) {
+            if (GameSettings.enableAds)
+            {
                 MenuManager.instance.ShowPopup<NoAds>();
             }
         }
@@ -282,7 +285,7 @@ namespace BlockPuzzleGameToolkit.Scripts.System
         internal void RestorePurchases(Action<bool, List<string>> OnPurchasesRestored)
         {
             if (!GameSettings.enableInApps) return;
-            
+
             this.OnPurchasesRestored = OnPurchasesRestored;
             IAPManager.instance?.RestorePurchases(OnPurchasesRestored);
         }
@@ -292,5 +295,18 @@ namespace BlockPuzzleGameToolkit.Scripts.System
             if (!GameSettings.enableInApps) return false;
             return IAPManager.instance?.IsProductPurchased(id) ?? false;
         }
+
+
+        [EasyButtons.Button]
+        private void OpenDailyReward()
+        {
+            MenuManager.instance.ShowPopup<DailyBonus>();
+        }
+        [EasyButtons.Button]
+        private void CloseDailyReward()
+        {
+            MenuManager.instance.GetPopupOpened<DailyBonus>().Close();
+        }
+
     }
 }
