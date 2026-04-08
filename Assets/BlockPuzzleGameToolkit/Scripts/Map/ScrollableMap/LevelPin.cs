@@ -31,12 +31,14 @@ namespace BlockPuzzleGameToolkit.Scripts.Map.ScrollableMap
 
         [SerializeField]
         private TextMeshProUGUI[] numberLabels;
-        [SerializeField] 
+        [SerializeField]
         private Color normalTextColor;
         [SerializeField]
         private Color currentTextColor;
         [SerializeField]
         private Color lockTextColor;
+        [SerializeField]
+        private RectTransform lockImage_RectTransform;
 
         private bool isLocked;
 
@@ -73,15 +75,18 @@ namespace BlockPuzzleGameToolkit.Scripts.Map.ScrollableMap
             lockObj.SetActive(true);
             openedObj.SetActive(false);
             currentObj.SetActive(false);
+
+            // int randomAngle = Random.value > 0.5 ? 25 : -25;
+            // lockImage_RectTransform.rotation = Quaternion.Euler(0, 0, randomAngle);
         }
-        
+
         public void UnLock()
         {
             isLocked = false;
-            
+
             foreach (var numberLabel in numberLabels)
             {
-                numberLabel.outlineWidth = 0.2f;
+                // numberLabel.outlineWidth = 0.2f;
                 numberLabel.outlineColor = normalTextColor;
                 numberLabel.gameObject.SetActive(true);
             }
