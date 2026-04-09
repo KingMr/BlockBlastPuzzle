@@ -39,6 +39,10 @@ namespace BlockPuzzleGameToolkit.Scripts.Map.ScrollableMap
         private Color lockTextColor;
         [SerializeField]
         private RectTransform lockImage_RectTransform;
+        [SerializeField]
+        private Sprite[] levelSprites;
+        [SerializeField]
+        private Image[] levelInnerImage;
 
         private bool isLocked;
 
@@ -61,6 +65,11 @@ namespace BlockPuzzleGameToolkit.Scripts.Map.ScrollableMap
             foreach (var numberLabel in numberLabels)
             {
                 numberLabel.text = number.ToString();
+            }
+            int index = number % levelSprites.Length;
+            foreach (var image in levelInnerImage)
+            {
+                image.sprite = levelSprites[index];
             }
         }
 

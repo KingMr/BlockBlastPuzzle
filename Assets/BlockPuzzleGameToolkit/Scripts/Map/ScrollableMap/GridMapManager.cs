@@ -13,13 +13,13 @@ public class GridMapManager : SingletonBehaviour<GridMapManager>
     private List<LevelPin> openedLevels = new List<LevelPin>();
     private List<LevelPin> allLevels = new List<LevelPin>();
 
-    [SerializeField] 
+    [SerializeField]
     private CustomButton backButton;
 
-    [SerializeField] 
+    [SerializeField]
     private ScrollMap scrollMap;
 
-    [SerializeField] 
+    [SerializeField]
     private Transform levelsGrid;
 
     [SerializeField]
@@ -33,7 +33,7 @@ public class GridMapManager : SingletonBehaviour<GridMapManager>
     private void Start()
     {
         backButton.onClick.AddListener(SceneLoader.instance.GoMain);
-       
+
         CreateLevels();
     }
 
@@ -43,6 +43,7 @@ public class GridMapManager : SingletonBehaviour<GridMapManager>
 
         int totalLevelsInResources = Resources.LoadAll<Level>("Levels").Length;
         int lastLevel = GameDataManager.GetLevelNum();
+        lastLevel = 8;
 
         for (int i = 0; i < totalLevelsInResources; i++)
         {
